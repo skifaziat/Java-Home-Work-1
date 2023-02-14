@@ -1,18 +1,45 @@
+
+
+import java.util.;
+
 public class program4  {
-    public static boolean solveEquation (String equation) {
-        int q, w, e;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                q = (equation.charAt(0) == '?') ? i : Character.getNumericValue(equation.charAt(0));
-                w = (equation.charAt(4) == '?') ? j : Character.getNumericValue(equation.charAt(4));
-                e = (equation.charAt(8) == '?') ? 0 : Character.getNumericValue(equation.charAt(8));
-                if (q + w == e) {
-                    System.out.println(q + " + " + w + " = " + e);
-                    return true;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the equation: ");
+        String equation = sc.nextLine();
+        String[] parts = equation.split("\\+|=");
+        int q = 0, w = 0, e = 0;
+        boolean qKnown = false, wKnown = false, eKnown = false;
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i].trim();
+            if (part.endsWith("?")) {
+                part = part.substring(0, part.length() - 1);
+                int num = Integer.parseInt(part);
+                if (i == 0) {
+                    q = num;
+                    qKnown = true;
+                } else if (i == 1) {
+                    w = num;
+                    wKnown = true;
+                } else {
+                    e = num;
+                    eKnown = true;
+                }
+            } else {
+                int num = Integer.parseInt(part);
+                if (!qKnown) {
+                    q = num - w;
+                } else if (!wKnown) {
+                    w = num - q;
+                } else if (!eKnown) {
+                    e = num + q + w;
                 }
             }
         }
-        return false;
-    
+        if (q >= 0 && w >= 0 && e >= 0) {
+            System.out.println(q + " + " + w + " = " + e);
+        } else {
+            System.out.println("No solution");
+        }
     }
 }

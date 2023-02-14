@@ -1,3 +1,5 @@
+//Вывести все простые числа от 1 до 1000
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,7 +8,7 @@ import java.util.Scanner;
 public class program2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите положительное число: ");
+        System.out.print("Insert positive number: ");
         int input = scanner.nextInt();
         scanner.close();
         List<Integer> primes = new ArrayList<>();
@@ -25,6 +27,6 @@ public class program2 {
                 primes.add(i);
             }
         }
-        System.out.println("Простые числа: " + primes);
+        System.out.println("Prime numbers: " + primes);
     }
 }
